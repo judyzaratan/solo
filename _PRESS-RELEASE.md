@@ -18,27 +18,35 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  >RunnerView
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-
+  >This product is for runners who want to easily visualize their running data and compare themselves among other people who have ran in the same race as them.  
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > RunnerView allows runners to visualize race day runs with data that consists of their pace and pace of other people.  
 
 ## Problem ##
   > Describe the problem your product solves.
+  > Many running races nowadays have searchable attributes for individual runners, age, pace, and finish time, but they do not have an aggregate data of the overall race so people can overall compare themselves, or generally view how other people did in a race.  
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  > Instead of viewing raw data for finish times, age, gender, and pace, RunnerView allows people to see a graph and visual representation of this information.  
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  > "Improve running and train better with visualizing your runs!"
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  >"Just enter in a race you have participated in and compare yourself with others"
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  >"Awesome app!!!  I can see visually where I need to improve my runs"
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  > Train better with the new knowledge!!!
