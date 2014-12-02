@@ -745,9 +745,26 @@ var padding = 100;
 
 
 var renderData = function(){
+
 	var svg = d3.select('body').append('svg')
 		.attr('width', width)
 		.attr('height', height)
+
+	var xScale = d3.scale.linear()
+		.domain([0, d3.max(data, function(d) { return d.finishTime; })])
+		.range([padding, width-padding]);
+
+	var xAxis = d3.svg.axis()
+		.scale(xScale)
+		.orient("bottom");
+
+	svg.append("g")
+		.attr("transform", "translate(0," + (130) + ")")
+		.attr('class', 'xaxis')
+		.call(xAxis);
+
+
+
 
 	var runner = svg.selectAll('circle')
 		.data(data); 
@@ -765,7 +782,7 @@ var renderData = function(){
 		.attr('class', 'runner')
 		.attr('r', 5)
 		.attr('cx', function(px){ 
-			return ((px.finishTime/60)*width)-(2*padding) + 'px';})
+			return (xScale(px.finishTime));})
 		.attr('cy', function(py){ 
 			if(py.Sex === 'F'){
 				return 100-(Math.random()*50);
@@ -804,19 +821,50 @@ var renderData = function(){
 	runner.exit().remove();
 
 
-	var xScale = d3.scale.linear()
-		.domain([0, d3.max(data, function(d) { return d.finishTime; })])
-		.range([padding, width-padding]);
-	var xAxis = d3.svg.axis()
-		.scale(xScale)
-		.orient("bottom");
-
-	svg.append("g")
-		.attr("transform", "translate(0," + (130) + ")")
-		.call(xAxis);
-
+	
 	};
+
+var changeView = function(){
+	
+
+
+    var yScale = d3.scale.linear()
+		.domain([0,d3.max(data, function(d) { 
+			return d.Age; 
+		})])
+		.range([0,height]);
+
+	d3.selectAll("circle")
+    .transition()
+    .duration(750)
+    .delay(500)
+    .attr("cy", function(d) { return (yScale(d.Age)); })
+
+
+
+	var yAxis = d3.svg.axis()
+		.scale(yScale)
+		.orient("left");
+	
+	d3.select('body').select('svg')
+		.append("g")
+		.attr('class', 'yaxis')
+		.attr("transform", "translate(" + padding + " ,0)")
+		.style("fill", "steelblue")
+		.call(yAxis);
+
+
+
+
+};
 
 $(document).ready(function(){
 	renderData();
+
+	$('#age').on('click', function(){
+		console.log('button was logged');
+		changeView();
+
+	});
+
 });
