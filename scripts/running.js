@@ -808,14 +808,39 @@ var svg = d3.select('body').append('svg')
       .attr('width', 12)
       .attr('height', 12)
       .attr('fill', genderData)
-      .on("mouseover", function() {
-        d3.select(this)
-          .attr("fill", "orange");
-      })
+      .on("mouseover", function(d) {
+		d3.select(this).attr("fill", "orange");
+
+		var xPosition = parseFloat(d3.select(this).attr("cx"));
+		var yPosition = parseFloat(d3.select(this).attr("cy"));
+
+		d3.select("#tooltip")
+		  .style("left", xPosition + "px")
+		  .style("top", yPosition + "px")
+		  .select("#value")
+		  .text(
+		  	"\nFirst Name:" + d.firstName +
+		  	"\n\nLast Name:" + d.lastName + 
+		  	"\nAge:" + d.Age +
+		  	"\nSex:" + d.Sex + 
+		  	"\n\nFinishTime:" + d.finishTime)
+
+
+		//Show the tooltip
+		d3.select("#tooltip").classed("hidden", false);
+
+	})
       .on("mouseout", function(){
-      	d3.select(this)
-      		.attr('fill', genderData);
-      })
+		d3.select(this)
+			.attr('fill', genderData);
+		d3.select("#tooltip").classed("hidden", true);
+	})
+
+
+
+
+
+
 
       .transition();
     // var letters = '0123456789ABCDEF'.split('');

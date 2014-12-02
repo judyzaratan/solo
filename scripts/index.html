@@ -5,7 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap 101 Template</title>
+    <style>
 
+
+    #tooltip {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        padding: 10px;
+        background-color: white;
+        border-radius: 10px;
+
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+}
+
+#tooltip.hidden {
+        display: none;
+}
+
+#tooltip p {
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+}
+
+
+
+
+
+
+
+
+
+     </style>
     <!-- Bootstrap -->
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -15,12 +49,24 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="d3.js" charset="utf-8"></script>
+    <script src="d3.js" charset="utf-8"></script>
     <script src='running.js'></script>
   </head>
   <body>
-    <h1>5K Race Data Visualization</h1>
     <button>Overall Results</button><button>Age Group Results</button>
+    <h1>5K Race Data Visualization</h1>
+    <div id='tooltip' class="hidden" style='left: 54px';'top: 200px'>
+      <p>
+        <strong>Runner Info</strong>
+        <br>
+        <span id="value"></span>
+      </p>
+      <p>
+        <span id="NameFirst"></span>
+        <span id="Sex"></span>
+        <span id="Age"></span>
+      </p>
+    </div>
 
 
 
