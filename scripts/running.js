@@ -738,7 +738,7 @@ var data = [
 {"lastName":"Lyons", "firstName":"Madeline","Age":81,"Sex":"F","Pace":19.4,"finishTime":61.24},
 {"lastName":"O'Brien", "firstName":"Jane","Age":70,"Sex":"F","Pace":20.2,"finishTime":63.45}];
 
-var svg = d3.select('svg');
+
 // var data = [{
 // 	name: "Judy",
 // 	finishTime: 50
@@ -761,10 +761,7 @@ var svg = d3.select('svg');
 var data2= [1, 2, 3];
 var width = 1000;
 var height = 600;
-
-var svg = d3.select('body').append('svg')
-	.attr('width', width)
-	.attr('height', height)
+var padding = 100;
 
 
 // function make_x_axis() {        
@@ -776,6 +773,12 @@ var svg = d3.select('body').append('svg')
 
 
  var renderData = function(){
+var svg = d3.select('body').append('svg')
+	.attr('width', width)
+	.attr('height', height)
+
+
+
 
 	 var runner = svg.selectAll('rect')
 	    .data(data); 
@@ -799,11 +802,22 @@ var svg = d3.select('body').append('svg')
       .attr('height', 12)
       .attr('r', 5)
       .attr('cx', function(px){ console.log('px', px);
-      	return px.finishTime*width/120;})
-      .attr('cy', function(py){ return 50;})
+      	return (px.finishTime*width - padding)/60;})
+      .attr('cy', function(py){ if(py.Sex === 'F'){
+      	return 50-(Math.random()*50);} return 100+(Math.random()*50);})
       .attr('width', 12)
       .attr('height', 12)
-      .attr('fill', genderData);
+      .attr('fill', genderData)
+      .on("mouseover", function() {
+        d3.select(this)
+          .attr("fill", "orange");
+      })
+      .on("mouseout", function(){
+      	d3.select(this)
+      		.attr('fill', genderData);
+      })
+
+      .transition();
     // var letters = '0123456789ABCDEF'.split('');
     // var color = '#';
     // for (var i = 0; i < 6; i++ ) {
@@ -811,7 +825,30 @@ var svg = d3.select('body').append('svg')
     // }
     // return color;
      runner.exit().remove();
+
+
+     var scale = d3.scale.linear()
+                    .domain([0, 120])
+                    .range([0, 1000]);
+
+
+     var xScale = d3.scale.linear()
+                     .domain([0, d3.max(data, function(d) { return d.finishTime; })])
+                     .range([0, width]);
+     var xAxis = d3.svg.axis()
+                  .scale(xScale)
+
+                  .orient("bottom");
+
+     svg.append("g")
+      .attr("transform", "translate(0," + (75) + ")")
+    .call(xAxis);
+
+
+
 };
 
+$(document).ready(function(){
 
 renderData();
+})
