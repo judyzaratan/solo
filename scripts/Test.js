@@ -825,7 +825,7 @@ var renderData = function(){
 	};
 
 var changeView = function(){
-	
+	d3.selectAll('g').data([]).exit().remove();
 
 
     var yScale = d3.scale.linear()
@@ -838,21 +838,36 @@ var changeView = function(){
     .transition()
     .duration(750)
     .delay(500)
-    .attr("cy", function(d) { return (yScale(d.Age)); })
+    .attr("cy", function(d) { return (yScale(d.Age) + 10); })
 
 
+	var xScale = d3.scale.linear()
+		.domain([0, d3.max(data, function(d) { return d.finishTime; })])
+		.range([padding, width-padding]);
+
+	var xAxis = d3.svg.axis()
+		.scale(xScale)
+		.orient("bottom")
+		.ticks(10)
+		.tickSize(height, 0, 0);
+
+	d3.select('body').select('svg').append("g")
+		.attr("transform", "translate(0," + 10 + ")")
+		.attr('class', 'xaxis')
+		.call(xAxis);
 
 	var yAxis = d3.svg.axis()
 		.scale(yScale)
-		.orient("left");
+		.orient("left")
+		.ticks(10)
+		.tickSize(-width, 0, 0);
 	
 	d3.select('body').select('svg')
 		.append("g")
 		.attr('class', 'yaxis')
-		.attr("transform", "translate(" + padding + " ,0)")
+		.attr("transform", "translate(" + padding + " ,10)")
 		.style("fill", "steelblue")
 		.call(yAxis);
-
 
 
 
@@ -866,5 +881,13 @@ $(document).ready(function(){
 		changeView();
 
 	});
+
+	$('#overall').on('click', function(){
+		console.log('switch back to riginal view');
+		d3.selectAll('g').data([]).exit().remove();
+		d3.selectAll('circle').data([]).exit().remove();
+		d3.selectAll('svg').data([]).exit().remove();
+		renderData();
+	})
 
 });
